@@ -62,8 +62,9 @@
                   <td><input type="text" name="in_mode[]" class="in_mode" ></td>
                   <td><input type="text" name="in_desc[]" class="in_desc" ></td>
                   <td><input type="text" name="in_amt[]" class="in_amt" ></td>
-                  <input type="hidden" name="id" value="1">
-                  <td><label class="add_row btn btn-info" id="add_row" onclick(); >Add</label> &nbsp;&nbsp;<a href="javascript:void(0);"><i class="fa fa-trash"></i></a></td>
+                  <input type="hidden" name="id1" value="1">
+                  <input type="hidden" name="id" value="<?php echo "$_SESSION['user_id']";?>">
+                  <td><label class="add_row btn btn-info" id="add_row" >Add</label> &nbsp;&nbsp;<a href="javascript:void(0);"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 <!-- <tr>
                   <td>219</td>
@@ -110,8 +111,8 @@
     //alert('jjkdhjgh');
      var tbl_tow = "";
     var set_id =0;
-    
-    tbl_row = "<tr><td><label id='sl_no' class='sl_no'></label></td><td><input type='text' name='in_mode[]' class='in_mode' ></td><td><input type='text' name='in_desc[]' class='in_desc' ></td><td><input type='text' name='in_amt[]' class='in_amt'></td><input type='hidden' name='id' value=''><td><a class='add_row'><i class='fa fa-plus'></i></a>&nbsp;&nbsp;<a href='javascript();'><i class='fa fa-trash'></i></a></td></tr>";
+    var id = $('#id').value();
+    tbl_row = "<tr><td><label id='sl_no' class='sl_no'></label></td><td><input type='text' name='in_mode[]' class='in_mode' ></td><td><input type='text' name='in_desc[]' class='in_desc' ></td><td><input type='text' name='in_amt[]' class='in_amt'></td><input type='hidden' name='id' value=''><td><label class='add_row btn btn-info' id='add_row'>Add</label>&nbsp;&nbsp;<a href='javascript();'><i class='fa fa-trash'></i></a></td></tr>";
   $('table tbody').append(tbl_row);
 
   })

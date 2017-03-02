@@ -26,6 +26,7 @@ class Budjet extends CI_Controller {
     	parent::__construct();
     	$this->load->model('user_details');
     	$this->load->model('budjet_model');
+
     	//if(is_login())
     	//if($_SESSION!="")
     	//	$this->user_id=$_SESSION['user_id'];
@@ -112,7 +113,13 @@ class Budjet extends CI_Controller {
 
 
 	public function dashboard(){
-		$this->load->view('index');
+	
+	if(isset($_SESSION['user_id'])){
+    		$this->load->view('index');
+    	}  //
+    	else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}	
 
 	}
 
@@ -222,7 +229,14 @@ class Budjet extends CI_Controller {
 
 	public function frame_budjet()
 	{
-		$this->load->view('frame_budjet');
+		if(isset($_SESSION['user_id'])){
+    		$this->load->view('frame_budjet');
+    	}  //
+    	else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
+
+		
 
 	}
 
