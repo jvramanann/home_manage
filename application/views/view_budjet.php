@@ -36,9 +36,9 @@
                 <thead>
                 <tr>
                   <th>Sl.No</th>
-                  <th>Expenses Mode</th>
-                  <th>Description</th>
-                  <th>Status</th>
+                  <th>Total Income</th>
+                  <th>Total Expenses</th>
+                  <th>Date</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -50,14 +50,14 @@
                   <td><?php echo ++$i;?>
                     </td>
                   <td><?php
-                    echo $val->name;
+                    echo $val->total_income;
                   ?>
                   </td>
                   <td><?php
-                    echo $val->description;
+                    echo $val->total_expenses;
                   ?></td>
                   <td> <?php
-                    echo (($val->status)==1) ? 'Active':'Inactive';
+                    echo $val->created_on;
                   ?></td>
                   <td>
                       <a href="#"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
@@ -74,9 +74,9 @@
                 <tfoot>
                 <tr>
                   <th>Sl.No</th>
-                  <th>Expenses Mode</th>
-                  <th>Description</th>
-                  <th>Status</th>
+                  <th>Total Income</th>
+                  <th>Total Expenses</th>
+                  <th>Date</th>
                   <th>Actions</th>
                 </tr>
                 </tfoot>

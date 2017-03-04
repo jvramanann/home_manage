@@ -273,7 +273,7 @@ class Budjet extends CI_Controller {
 			'user_id'		=> $_SESSION['user_id'],
 			'total_income'  => $total_income,
 			'total_expenses'=> $total_expenses,
-			'created_on' => date('Y-m-d')
+			'created_on' => date('Y-m-d'),
 			);
 
 			$this->load->model('budjet_model');
@@ -295,8 +295,15 @@ class Budjet extends CI_Controller {
 
 	public function view_budjet()
 	{
-		$this->load->view('frame_budjet');
-
+		if(isset($_SESSION['user_id'])){
+			$this->load->model('budjet_model');
+			$data['data'] = $this->budjet_model->get_data('budjets',$_SESSION['user_id'],'user_id');
+			$this->load->view('view_budjet',$data);
+		$this->load->view('view_budjet');
+ 		}
+ 		else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
 	}
 
 	public function signout(){
