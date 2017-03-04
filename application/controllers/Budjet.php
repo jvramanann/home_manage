@@ -231,7 +231,60 @@ class Budjet extends CI_Controller {
 	{
 		if(isset($_SESSION['user_id'])){
     		$this->load->view('frame_budjet');
-    	}  //
+    	} 
+    	
+    	else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
+
+		
+
+	}
+
+
+	public function save_budjet()
+	{
+		if(isset($_SESSION['user_id'])){
+    		
+			/*$data = array (
+  			'name' => $this->input->post('name', TRUE),
+  			'email' => $this->input->post('email', TRUE), 
+  			'password' => $this->input->post('password', TRUE),
+  			'created_on' => $this->input->post('created_on', TRUE),
+			);*/
+			$in_mode  = $this->input->post('in_mode');
+			$in_desc  = $this->input->post('in_desc');
+			$in_amt   = $this->input->post('in_amt');
+			$exp_mode = $this->input->post('exp_mode');
+			$exp_desc = $this->input->post('exp_desc');
+			$exp_amt  = $this->input->post('exp_amt');
+			$total_income   = array_sum($in_amt);
+			$total_expenses = array_sum($exp_amt);
+			$created_on = date('Y-m-d');
+
+
+			$data = array(
+			'income_mode ' 	=> implode("@@", $in_mode ),
+			'income_desc ' 	=> implode("@@", $in_desc ),
+			'income_amount' => implode("@@", $in_amt  ),
+			'exp_mode '		=> implode("@@", $exp_mode),
+			'exp_desc '		=> implode("@@", $exp_desc),
+			'exp_amount'  	=> implode("@@", $exp_amt ),
+			'user_id'		=> $_SESSION['user_id'],
+			'total_income'  => $total_income,
+			'total_expenses'=> $total_expenses,
+			'created_on' => date('Y-m-d')
+			);
+
+			$this->load->model('budjet_model');
+    		$result = $this->budjet_model->insertRow('budjets',$data);
+    		if($result){
+				redirect( base_url().'budjet/dashboard', 'refresh');    			
+    		}
+    		else{
+    			redirect( base_url().'budjet/frame_budjet', 'refresh');
+    		}
+    	}    	
     	else{
     		redirect( base_url().'budjet/login', 'refresh');
     	}

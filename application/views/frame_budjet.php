@@ -21,7 +21,7 @@
 
 
     <!-- /.row -->
-    <form class="form-horizontal" name="add_expenses_mode" id="add_expenses_mode" action="#" method="post">
+    <form class="form-horizontal" name="add_expenses_mode" id="add_expenses_mode" action="<?php echo base_url().'budjet/save_budjet';?>" method="post">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -107,6 +107,8 @@
                   <td><input type="text" name="exp_amt[]" class="exp_amt" id="exp_amt" onchange="sum_expenses(this.value);" ></td>
                   <!-- <input type="hidden" name="id1" value="1"> -->
                   <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'];?>">
+                  <input type="hidden" name="total_income"  id="total_income">
+                  <input type="hidden" name="total_expenses"  id="total_expenses">
                   <td><!-- <a href="javascript:void(0);"><i class="fa fa-trash"></i></a> --></td>
                 </tr>
                
@@ -147,6 +149,7 @@
   values = $("input[name='in_amt[]']").map(function(){return $(this).val();}).get();
   sum =values.reduce(add,0); 
   $('#tot_income').text(sum);
+  $('#total_income').text(sum);
      var bal = parseFloat($('#tot_income').text())-parseFloat($('#tot_exp1').text());
   $('#balance').text(bal);
   });
