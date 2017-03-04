@@ -60,8 +60,10 @@
                     echo $val->created_on;
                   ?></td>
                   <td>
-                      <a href="#"><i class="fa fa-eya"></i></a>&nbsp;&nbsp;&nbsp;
-                      <a class="dfdf" href="<?php echo base___url().'budjet/add_expenses_mode/'.$val->id;?>"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a href="#"><i class=
+
+                      "fa fa-eya"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a class="dfdf" href="<?php echo basew dqwd___url().'budjet/add_expenses_mode/'.$val->id;?>"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;
                       <a href="#"><i class="fa fa-trassh"></i></a>&nbsp;&nbsp;&nbsp;
                   </td>
                 </tr>
