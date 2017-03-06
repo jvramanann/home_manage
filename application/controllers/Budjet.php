@@ -317,4 +317,35 @@ class Budjet extends CI_Controller {
 		$this->budjet_model->delete('expenses_mode','id',$id);
 		redirect( base_url().'budjet/mode_expenses');			
 	}
+
+	public function view_this($id)
+	{
+		if(isset($_SESSION['user_id'])){
+			$this->load->model('budjet_model');
+			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
+			$this->load->view('this_budjet',$data);
+		}
+
+	}
+
+	public function edit_budjet($id)
+	{
+		if(isset($_SESSION['user_id'])){
+			$this->load->model('budjet_model');
+			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
+			$this->load->view('edit_budjet',$data);
+		}
+
+	}
+
+	public function print_budjet($id)
+	{
+		if(isset($_SESSION['user_id'])){
+			$this->load->model('budjet_model');
+			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
+			$this->load->view('print_budjet',$data);
+		}
+
+	}
+
 }

@@ -60,11 +60,9 @@
                     echo $val->created_on;
                   ?></td>
                   <td>
-                      <a href="#"><i class=
-
-                      "fa fa-eya"></i></a>&nbsp;&nbsp;&nbsp;
-                      <a class="dfdf" href="<?php echo basew dqwd___url().'budjet/add_expenses_mode/'.$val->id;?>"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;
-                      <a href="#"><i class="fa fa-trassh"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a href="<?php echo base_url().'budjet/view_this/'.$val->id;?>"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a href="<?php echo base_url().'budjet/edit_budjet/'.$val->id;?>"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;
+                      <a href="#"><i class="fa fa-trash"></i></a>&nbsp;&nbsp;&nbsp;
                   </td>
                 </tr>
                 <?php } ?>
