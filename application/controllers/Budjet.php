@@ -112,6 +112,72 @@ class Budjet extends CI_Controller {
 	}
 
 
+	public function profile()
+	{
+		if(isset($_SESSION['user_id'])){
+			if($_SESSION['user_id']==$id){
+			$this->load->model('budjet_model');
+			$data['data'] = $this->budjet_model->get_data('user_details',$id,'user_id');
+			$this->load->view('profile',$data);
+		 }else{
+		 	redirect(base_url().'budjet/dashboard', 'refresh');
+		 }
+		}
+		else{
+    		redirect(base_url().'budjet/login', 'refresh');
+    	}
+	}
+
+
+	public function profile_edit()
+	{
+			if(isset($_SESSION['user_id'])){
+
+			if($_FILES['profile_image']['name']!=""){
+			$filename=$_FILES['profile_image']['name'];
+            $tmpname=$_FILES['profile_image']['tmp_name'];
+            $exp=explode('.', $filename);
+            $ext=end($exp);
+            $newname=  $exp[0].'_'.time().".".$ext; 
+            $config['upload_path'] = 'assets/images/';
+            $config['upload_url'] =  base_url().'assets/images/profile/';
+            $config['allowed_types'] = "gif|jpg|jpeg|png|iso|dmg|zip|rar|doc|docx|xls|xlsx|ppt|pptx|csv|ods|odt|odp|pdf|rtf|sxc|sxi|txt|exe|avi|mpeg|mp3|mp4|3gp";
+            $config['max_size'] = '2000000'; 
+            $config['file_name'] = $newname;           
+            $this->load->library('upload', $config);
+            move_uploaded_file($tmpname,"assets/images/profile/".$newname);
+
+            $data = array (
+  			'name' => $this->input->post('name', TRUE),
+  			'email' => $this->input->post('email', TRUE), 
+  			'profile_image' => $newname, 
+  			);
+        }
+        else{
+        	$data = array (
+  			'name' => $this->input->post('name', TRUE),
+  			'email' => $this->input->post('email', TRUE),   			
+  			);
+        }
+            //return $newname;
+        $result = $this->user_details->updateRow('user_details', 'user_id', $id, $data);
+       	if($result )
+       	{
+       	  redirect( base_url().'budjet/dashboard', 'refresh');	
+       	}
+       	else{
+       		redirect( base_url().'budjet/profile', 'refresh');
+       	}
+            /*print_r($data);
+            exit;*/
+        }else{
+        	redirect( base_url().'budjet/login', 'refresh');
+        }
+
+	}
+
+
+
 	public function dashboard(){
 	
 	if(isset($_SESSION['user_id'])){
@@ -313,9 +379,14 @@ class Budjet extends CI_Controller {
 	
 
 	public function exp_mode_delete($id){ //$table, $col, $colVal
+		if(isset($_SESSION['user_id'])){
 		$this->load->model('budjet_model');
 		$this->budjet_model->delete('expenses_mode','id',$id);
-		redirect( base_url().'budjet/mode_expenses');			
+		redirect( base_url().'budjet/mode_expenses');	
+	}
+		else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}		
 	}
 
 	public function view_this($id)
@@ -325,6 +396,9 @@ class Budjet extends CI_Controller {
 			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
 			$this->load->view('this_budjet',$data);
 		}
+		else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
 
 	}
 
@@ -334,7 +408,9 @@ class Budjet extends CI_Controller {
 			$this->load->model('budjet_model');
 			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
 			$this->load->view('edit_budjet',$data);
-		}
+		}else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
 
 	}
 
@@ -344,7 +420,9 @@ class Budjet extends CI_Controller {
 			$this->load->model('budjet_model');
 			$data['data'] = $this->budjet_model->get_data('budjets',$id,'id');
 			$this->load->view('print_budjet',$data);
-		}
+		}else{
+    		redirect( base_url().'budjet/login', 'refresh');
+    	}
 
 	}
 

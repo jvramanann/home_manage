@@ -42,7 +42,11 @@
 		}
 	}
 
-
+	public function updateRow($table, $col, $colVal, $data) {
+  		$this->db->where($col,$colVal);
+		$this->db->update($table,$data);
+		return true;
+  	}
 
 
   }
