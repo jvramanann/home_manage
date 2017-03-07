@@ -5,7 +5,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?php echo base_url().'budjet/dashboard'?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>V</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -216,20 +216,31 @@
           </li>-->
           <!-- User Account: style can be found in dropdown.less -->
           <?php $page = $this->uri->segment(2);?>
+          <!-- <?php print_r($data);?> -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+            <?php if($_SESSION['profile_image']){?>
+              <img src="<?php echo base_url().'assets/images/profile/'.$_SESSION['profile_image'];?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['user_name'];?></span>
             </a>
             <ul class="dropdown-menu">
-              <!-- User image -->
+              <!-- User image base_url().'assets/images/profile/ -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo base_url().'assets/images/profile/'.$_SESSION['profile_image'];?>" class="img-circle" alt="User Image">
+                <?php } else {?>
 
+                <i class="user-image ion ion-person" alt="User Image"></i>
+              <span class="hidden-xs"><?php echo $_SESSION['user_name'];?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image base_url().'assets/images/profile/ -->
+              <li class="user-header">
+                <i class="ion ion-person img-circle" alt="User Image"></i>
                 <!-- <p>
                   Alexander Pierce - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p> -->
+                <?php } ?>
               </li>
               <!-- Menu Body -->
              <!--  <li class="user-body">
@@ -273,7 +284,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url().'assets/images/profile/'.$_SESSION['profile_image'];?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['user_name'];?></p>
@@ -295,7 +306,7 @@
       <ul class="sidebar-menu">
         <!-- <li class="header">MAIN NAVIGATION</li> -->
         <li class="<?php if($page=='dashboard') echo "active";?> treeview">
-          <a href="#">
+          <a href="<?php echo base_url().'budjet/dashboard'?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <!-- <i class="fa fa-angle-left pull-right"></i> -->

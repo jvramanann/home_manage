@@ -33,6 +33,7 @@
 				$this->session->set_userdata('user_id',$res[0]->user_id);
 				$this->session->set_userdata('email',$res[0]->email);
 				$this->session->set_userdata('user_name',$res[0]->name);
+				$this->session->set_userdata('profile_image',$res[0]->profile_image);
 			return $res;
 		}
 		else return 'fail';

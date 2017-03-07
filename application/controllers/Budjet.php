@@ -92,7 +92,7 @@ class Budjet extends CI_Controller {
   			'name' => $this->input->post('name', TRUE),
   			'email' => $this->input->post('email', TRUE), 
   			'password' => $this->input->post('password', TRUE),
-  			'created_on' => $this->input->post('created_on', TRUE),
+  			'created_on' => $date,
 			);
     		//$data =$this->input->post();
     		$this->load->model('user_details');
@@ -115,15 +115,17 @@ class Budjet extends CI_Controller {
 	public function profile()
 	{
 		if(isset($_SESSION['user_id'])){
-			if($_SESSION['user_id']==$id){
+			//if($_SESSION['user_id']==$id){
+			$id = $_SESSION['user_id'];
 			$this->load->model('budjet_model');
 			$data['data'] = $this->budjet_model->get_data('user_details',$id,'user_id');
 			$this->load->view('profile',$data);
-		 }else{
+		 /*}else{
 		 	redirect(base_url().'budjet/dashboard', 'refresh');
-		 }
+		 }*/
 		}
 		else{
+			//echo "<script>alert('Not allowed');</script>";
     		redirect(base_url().'budjet/login', 'refresh');
     	}
 	}
@@ -160,17 +162,24 @@ class Budjet extends CI_Controller {
   			);
         }
             //return $newname;
-        $result = $this->user_details->updateRow('user_details', 'user_id', $id, $data);
+        $result = $this->user_details->updateRow('user_details', 'user_id', $_SESSION['user_id'], $data);
        	if($result )
        	{
-       	  redirect( base_url().'budjet/dashboard', 'refresh');	
+       	   if($_SESSION['profile_image']==""){
+       	   $this->load->model('budjet_model');
+		   $data['data'] = $this->budjet_model->get_data('user_details',$_SESSION['user_id'],'user_id');
+		   $_SESSION['profile_image']=$data['profile_image'];
+		  }
+		    redirect( base_url().'budjet/dashboard', 'refresh');	
        	}
        	else{
+       		//exit;
        		redirect( base_url().'budjet/profile', 'refresh');
        	}
             /*print_r($data);
             exit;*/
         }else{
+
         	redirect( base_url().'budjet/login', 'refresh');
         }
 
@@ -181,7 +190,11 @@ class Budjet extends CI_Controller {
 	public function dashboard(){
 	
 	if(isset($_SESSION['user_id'])){
-    		$this->load->view('index');
+    		$this->load->model('budjet_model');
+		$data['data'] = $this->budjet_model->get_data('user_details',$_SESSION['user_id'],'user_id');
+		//$this->load->view('sidebar',$data);
+		$this->load->view('index',$data);	
+    	
     	}  //
     	else{
     		redirect( base_url().'budjet/login', 'refresh');
