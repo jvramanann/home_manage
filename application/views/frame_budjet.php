@@ -26,7 +26,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
+              <h3 class="box-title">Incomes</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -43,7 +43,7 @@
             <div class="box-body table-responsive no-padding">
             
               <table class="table table-hover" name="frame_budjet" id="frame_budjet">
-                <tr><td></td><td>Total Income : <b><label id="tot_income"></label></b></td><td>Total Expenses :<b><label id="tot_income"></label></b></td><td>With Un-Nec Exp : <b><label id="tot_income"></label></b></td><td>Balance : <b><label id="balance"></label></b></td></tr>
+                <tr><td></td><td>Total Income : <b><label id="tot_income"></label></b></td><td>Total Expenses :<b><label id="tot_exp"></label></b></td><td>With Un-Nec Exp : <b><label id="tot_wexp"></label></b></td><td>Balance : <b><label id="balance"></label></b></td></tr>
                 <tr>
                   <th><!-- Sl.No --></th>
                   <th>Mode of Inome</th>
@@ -75,7 +75,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
+              <h3 class="box-title">Expenses</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -113,15 +113,18 @@
                 </tr>
                
               </table>
-              
+              <table name="footer_total" id="footer_total" class="table table-hover">
+                <tr><td></td><td>Total Income : <b><label id="tot_income_f"></label></b></td><td>Total Expenses :<b><label id="tot_exp_f"></label></b></td><td>With Un-Nec Exp : <b><label id="tot_wexp1_f"></label></b></td><td>Balance : <b><label id="balance_f"></label></b></td></tr>
+              </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
       </div>
-
-      <button>save</button>
+        <div style="align-self:center;">
+      <button class="btn btn-block btn-primary btn-lg">save</button>
+      </div>
       </form>     
     </section>
     <!-- /.content -->
@@ -132,8 +135,8 @@
   <script type="text/javascript">
    
     var sum = 0;
-    $('#tot_income').text(0);
-     $('#tot_exp1').text(0);
+    $('#tot_income,#tot_income_f,#tot_income1').text(0);
+     $('#tot_exp,#tot_exp1,#tot_exp_f').text(0);
     $("#add_row").click(function(){
     var tbl_tow = "";
     var set_id =0;
@@ -148,10 +151,10 @@
   var values=[];
   values = $("input[name='in_amt[]']").map(function(){return $(this).val();}).get();
   sum =values.reduce(add,0); 
-  $('#tot_income').text(sum);
-  $('#total_income').text(sum);
+  $('#tot_income,#tot_income1,#tot_income_f').text(sum);
+  //$('#total_income').text(sum);
      var bal = parseFloat($('#tot_income').text())-parseFloat($('#tot_exp1').text());
-  $('#balance').text(bal);
+  $('#balance,#balance1,#balance_f').text(bal);
   });
 
 
@@ -172,9 +175,9 @@
     var values=[];
     values = $("input[name='exp_amt[]']").map(function(){return $(this).val();}).get();
     sum =values.reduce(add,0); 
-    $('#tot_exp1').text(sum);  
+    $('#tot_exp1,#tot_exp,#tot_exp_f').text(sum);  
     var bal = parseFloat($('#tot_income').text())-parseFloat($('#tot_exp1').text());
-    $('#balance').text(bal);
+    $('#balance,#balance1,#balance_f').text(bal);
 });
 
 
@@ -185,10 +188,10 @@
  var values=[];
  values = $("input[name='in_amt[]']").map(function(){return $(this).val();}).get();
  sum =values.reduce(add,0); 
-$('#tot_income').text(sum); 
+$('#tot_income,#tot_income1,#tot_income_f').text(sum); 
 
 var bal = parseFloat($('#tot_income').text())-parseFloat($('#tot_exp1').text());
-$('#balance').text(bal);
+$('#balance,#balance1,#balance_f').text(bal);
 }
 
 
@@ -198,17 +201,35 @@ $('#balance').text(bal);
  var values=[];
  values = $("input[name='exp_amt[]']").map(function(){return $(this).val();}).get();
  sum =values.reduce(add,0); 
-$('#tot_exp1').text(sum); 
+$('#tot_exp1,#tot_exp,#tot_exp_f').text(sum); 
 
 var bal = parseFloat($('#tot_income').text())-parseFloat($('#tot_exp1').text());
-$('#balance').text(bal);
+$('#balance,#balance1,#balance_f').text(bal);
 }
 
 
 function add(a,b){
+  if(a>0&&b>0)
 return parseFloat(a)+parseFloat(b);
 }
 
+//$(document).ready(function() {
+    $("input[name='exp_amt[],input[name='in_amt[]").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+             // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+//});
   
 
   </script>
